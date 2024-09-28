@@ -18,7 +18,7 @@ public class UserDaoJDBCImpl implements UserDao {
                     "name VARCHAR(255)," +
                     "lastName VARCHAR(255)," +
                     "age TINYINT);", DB_NAME);
-    private static final String DROP_DATABASE = String.format ("DROP TABLE %s", DB_NAME);
+    private static final String DROP_DATABASE = String.format ("DROP TABLE IF EXISTS %s", DB_NAME);
     private static final String INSERT_DATA = String.format ("INSERT INTO %s (name, lastName, age) VALUES (?, ?, ?)", DB_NAME);
     private static final String DELETE_DATA = String.format ("DELETE FROM %s WHERE id = ?", DB_NAME);
     private static final String SELECT_ALL = String.format ("SELECT * FROM %s", DB_NAME);
@@ -37,6 +37,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             System.out.println("Не удалось создать БД");
+            throw new RuntimeException(e);
         }
     }
 
@@ -48,6 +49,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             System.out.println("Не удалось удалить БД");
+            throw new RuntimeException(e);
         }
     }
 
@@ -62,6 +64,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             System.out.println("Не удалось сохранить нового User в БД");
+            throw new RuntimeException(e);
         }
     }
 
@@ -73,7 +76,8 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Не удалось сохранить нового User в БД");
+            System.out.println("Не удалось удалить User из БД");
+            throw new RuntimeException(e);
         }
     }
 
@@ -104,6 +108,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             System.out.println("Не удалось получить всех User из БД");
+            throw new RuntimeException(e);
         }
 
         return users;
@@ -118,6 +123,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             System.out.println("Не удалось очистить БД");
+            throw new RuntimeException(e);
         }
 
     }
