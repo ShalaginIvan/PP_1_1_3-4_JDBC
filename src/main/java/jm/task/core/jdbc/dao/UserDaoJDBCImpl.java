@@ -9,8 +9,6 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    //"CREATE TABLE IF NOT EXISTS user(name varchar(100), id integer primary key auto_increment, nickname varchar(100));");
-
     private static final String DB_NAME = "users";
 
     private static final String CREATE_DB = String.format ("CREATE TABLE IF NOT EXISTS %s(" +
@@ -28,7 +26,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
-    public void createUsersTable() {
+    public void createTable() {
 
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
@@ -41,7 +39,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void dropUsersTable() {
+    public void dropTable() {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -53,7 +51,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) {
+    public void save(String name, String lastName, byte age) {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DATA)) {
 
@@ -68,7 +66,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void removeUserById(long id) {
+    public void removeById(long id) {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_DATA)) {
 
@@ -81,7 +79,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
 
         List<User> users = new ArrayList<>();
 
@@ -114,7 +112,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return users;
     }
 
-    public void cleanUsersTable() {
+    public void cleanTable() {
 
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {

@@ -10,20 +10,20 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
-        userService.createUsersTable();
+        userService.createTable();
 
-        userService.saveUser("Иван", "Иванович", (byte) 23);
-        userService.saveUser("Петр", "Петрович", (byte) 58);
-        userService.saveUser("Семен", "Семенович", (byte) 39);
-        userService.saveUser("Николай", "Николаевич", (byte) 19);
+        userService.save("Иван", "Иванович", (byte) 23);
+        userService.save("Петр", "Петрович", (byte) 58);
+        userService.save("Семен", "Семенович", (byte) 39);
+        userService.save("Николай", "Николаевич", (byte) 19);
 
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAll();
 
         for (User u : users) {
             System.out.println (u);
         }
 
-        userService.cleanUsersTable();
-        userService.dropUsersTable();
+        userService.cleanTable();
+        userService.dropTable();
     }
 }
