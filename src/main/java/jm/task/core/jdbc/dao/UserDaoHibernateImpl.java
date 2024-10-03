@@ -37,7 +37,12 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            if (sql.equals(CREATE_DB)) {
+                System.out.println("Не удалось создать БД");
+            } else {
+                System.out.println("Не удалось удалить БД");
+            }
+            throw new RuntimeException(e);
         }
     }
 
@@ -66,7 +71,8 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            System.out.println("Не удалось сохранить нового User в БД");
+            throw new RuntimeException(e);
         }
     }
 
@@ -85,7 +91,8 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            System.out.println("Не удалось удалить User из БД");
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,7 +112,8 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            System.out.println("Не удалось получить всех User из БД");
+            throw new RuntimeException(e);
         }
 
         return users;
@@ -125,7 +133,8 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            System.out.println("Не удалось очистить БД");
+            throw new RuntimeException(e);
         }
     }
 }
